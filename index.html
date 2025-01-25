@@ -133,9 +133,27 @@
             text-align: right;
         }
 
+        .greeting-time {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .time {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
+
     <header>
         <div>
             <p>HOME SWEET HOME</p>
@@ -168,6 +186,37 @@
         <a href="#"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbVYPqmd3A5R34ve2Ma2jsRLLrzgjuiWif-Q&s" alt="Room 7"></a>
         <a href="#"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbVYPqmd3A5R34ve2Ma2jsRLLrzgjuiWif-Q&s" alt="Room 8"></a>
     </div>
+
+    <div class="greeting-time" id="greetingTime">
+        <div id="greetingMessage"></div>
+        <div id="currentTime" class="time"></div>
+    </div>
+
+    <script>
+        // Function to get the current time and set the greeting message
+        function updateGreeting() {
+            const now = new Date();
+            const hours = now.getHours();
+            const options = { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            const timeString = new Intl.DateTimeFormat('en-IN', options).format(now);
+
+            let greeting = '';
+
+            if (hours >= 5 && hours < 12) {
+                greeting = 'Good Morning';
+            } else if (hours >= 12 && hours < 17) {
+                greeting = 'Good Afternoon';
+            } else {
+                greeting = 'Good Night';
+            }
+
+            document.getElementById('greetingMessage').textContent = greeting;
+            document.getElementById('currentTime').textContent = 'Time: ' + timeString;
+        }
+
+        // Update greeting and time every second
+        setInterval(updateGreeting, 1000);
+    </script>
+
 </body>
 </html>
-
